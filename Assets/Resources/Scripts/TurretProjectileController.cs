@@ -9,18 +9,20 @@ using System.Collections;
 /// @Usage: attach to turret projectile(s)
 /// </summary>
 public class TurretProjectileController : MonoBehaviour
-{    
+{
     int shieldDamage;
     int crystalDamage;
     int turretExpDamage;    //should be negative
     int turretExp;
 
-    public int ShieldDamage {
+    public int ShieldDamage
+    {
         get { return shieldDamage; }
         set { shieldDamage = value; }
     }
 
-    public int CrystalDamage {
+    public int CrystalDamage
+    {
         get { return crystalDamage; }
         set { crystalDamage = value; }
     }
@@ -37,9 +39,18 @@ public class TurretProjectileController : MonoBehaviour
         set { TurretExp = value; }
     }
 
+    [HideInInspector]
     public MiniturretController turret;
 
-    void OncollisionEnter(Collision other)
+    void Start()
+    {
+        shieldDamage = 25;
+        crystalDamage = 2;
+        turretExp = 1;
+        turretExpDamage = -3;
+    }
+
+    void OnCollisionEnter(Collision other)
     {
         //damage crystal shield
         if (other.gameObject.tag == Tags.crystalShield)
@@ -49,14 +60,15 @@ public class TurretProjectileController : MonoBehaviour
             csc.DamageShieldHealth(shieldDamage);
 
             //increase turret exp
-            
+            //turret.AlterExperiencePoints (turretExp);
+
         }
 
         //damage turret exp
         if (other.gameObject.tag == Tags.player)
         {
             //decrease turret exp
-            turret.AlterExperiencePoints(turretExpDamage);
+            //turret.AlterExperiencePoints(turretExpDamage);
         }
 
         //damage crystal
@@ -67,7 +79,7 @@ public class TurretProjectileController : MonoBehaviour
             cc.DamageCrystalHealth(crystalDamage);
 
             //increase turret exp
-            turret.AlterExperiencePoints(turretExp);
+            //turret.AlterExperiencePoints(turretExp);
         }
     }
 }

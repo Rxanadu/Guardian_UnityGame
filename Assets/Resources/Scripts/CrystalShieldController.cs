@@ -54,6 +54,7 @@ public class CrystalShieldController : MonoBehaviour
         disabledPosition = new Vector3(transform.localPosition.x, disabledTransformY, transform.localPosition.z);
     }
 
+	//disable crystal shield when health is depleted
     void DisableShield()
     {
         //move shield to disabled position (y-axis)
@@ -61,6 +62,7 @@ public class CrystalShieldController : MonoBehaviour
             disabledPosition, Time.deltaTime);
     }
 
+	//enable crystal shield after cooldown has finished
     void EnableShield()
     {
         //move shield to original position (y-axis)

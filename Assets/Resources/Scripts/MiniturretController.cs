@@ -79,11 +79,11 @@ public class MiniturretController : MonoBehaviour
 
         //set values for clone projectile
         TurretProjectileController tpc = clone.GetComponent<TurretProjectileController>();
-        tpc.CrystalDamage = crystalHealthDamage;
+        /*tpc.CrystalDamage = crystalHealthDamage;
         tpc.ShieldDamage = crystalShieldDamage;
         tpc.TurretExp = expPoints;
         tpc.TurretExpDamage = expPointDamage;
-        tpc.turret = this;
+        tpc.turret = this;*/
     }
 
     //fires projectile from turret at cooldown

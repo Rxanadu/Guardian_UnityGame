@@ -13,10 +13,11 @@ public class OptionButtonController : MonoBehaviour {
         PlayGame,
         Times,
         Resume,
-        QuitGame,
+        QuitLevel,
         Replay,
         Pause,
-        Back
+        Back,
+        QuitGame
     }
 
     public ButtonMenu menu = ButtonMenu.PlayGame;
@@ -52,12 +53,13 @@ public class OptionButtonController : MonoBehaviour {
                 //enable pause button
                 gec.EnableGUIElement(gec.pauseButton);
                 break;
-            case ButtonMenu.QuitGame:
+            case ButtonMenu.QuitLevel:
                 print("QuitGame button pressed");
                 Application.LoadLevel(levelName);
                 break;
             case ButtonMenu.Replay:
                 print("Replay button pressed");
+                Application.LoadLevel(Application.loadedLevel);
                 break;
             case ButtonMenu.Pause:
                 print("Pause button pressed");
@@ -73,6 +75,9 @@ public class OptionButtonController : MonoBehaviour {
             case ButtonMenu.Back:
                 print("Times button pressed");
                 Camera.main.transform.LookAt(target);
+                break;
+            case ButtonMenu.QuitGame:
+                Application.Quit();
                 break;
         }
     }
