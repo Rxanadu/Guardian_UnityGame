@@ -14,15 +14,14 @@ public class GameEndController : MonoBehaviour
     PlayerController pc;
     GUIElementsController gec;
     GameTimer gt;
-    
+
     GameObject[] turrets;
-    GameObject finishTime;
-    GameObject bestTime;
     bool gameEnded;
     string finishTimeText;
     string bestFinishTimeText;
-    
-    public bool GameEnded {
+
+    public bool GameEnded
+    {
         get { return gameEnded; }
     }
 
@@ -34,16 +33,6 @@ public class GameEndController : MonoBehaviour
         pc = GameObject.FindGameObjectWithTag(Tags.player).GetComponent<PlayerController>();
         gec = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<GUIElementsController>();
         gt = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<GameTimer>();
-
-        finishTime = GameObject.FindGameObjectWithTag(Tags.finishTimeText);
-        bestTime = GameObject.FindGameObjectWithTag(Tags.bestTimeText);
-
-        finishTimeText = finishTime.GetComponent<GUIText>().guiText.text;
-        bestFinishTimeText = bestTime.GetComponent<GUIText>().guiText.text;
-
-        //set text for Game Over screen text
-        finishTimeText = "FINISH TIME: ";
-        bestFinishTimeText = "BEST TIME: ";
 
         gameEnded = false;
     }
@@ -60,8 +49,6 @@ public class GameEndController : MonoBehaviour
 
     void StopGame()
     {
-		print ("Oh no! Game over :(");
-
         //disable turrets
         foreach (GameObject turret in turrets)
         {
@@ -73,14 +60,22 @@ public class GameEndController : MonoBehaviour
 
         //stop player from spawning in
 
+        
+
+        finishTimeText = "FINISH TIME: " + gt.FinishTime;
+        bestFinishTimeText = "BEST TIME: " + gt.BestFinishTime;
+
+        //set text for Game Over screen text
+        GameObject.FindGameObjectWithTag(Tags.finishTimeText).
+            GetComponent<GUIText>().text = finishTimeText;
+        GameObject.FindGameObjectWithTag(Tags.bestTimeText).
+            GetComponent<GUIText>().text = bestFinishTimeText;
+
         //dislplay Game Over screen        
         gec.EnableGUIElement(gec.GameOverScreen);
 
-        //set game over text
-        finishTimeText += gt.FinishTime.ToString();
-        bestFinishTimeText += gt.BestFinishTime.ToString();
-
-		//disable other GUI elements
-		gec.DisableGUIElement(gec.PauseButton);
+        //disable other GUI elements
+        gec.DisableGUIElement(gec.PauseButton);
+        gec.DisableGUIElement(gec.PauseMenu);
     }
 }

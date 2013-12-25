@@ -18,12 +18,15 @@ public class GameTimer : MonoBehaviour
     float bestFinishTime;
     bool updateTimer;
 
-    public float FinishTime {
-        get { return finishTime; }
+    string finishText;
+    string bestText;
+
+    public string FinishTime {
+        get { return finishText; }
     }
 
-    public float BestFinishTime {
-        get { return bestFinishTime; }
+    public string BestFinishTime {
+        get { return bestText; }
     }
 
     // Use this for initialization
@@ -70,17 +73,15 @@ public class GameTimer : MonoBehaviour
         }
     }
 
-    void OnGUI() {
-        GUI.Label(new Rect(10, 10, 120, 30), timer.ToString());
-    }
-
     //count time for the game
     void CountTime()
     {
         timer += Time.deltaTime;     
     }
 
+    //saves best time via PlayerPrefs if it was beaten by current time
     void SaveBestTime() {
+        string minSec = string.Format("{0}:{1:00}", (int)timer / 60, (int)timer % 60);
         
         finishTime = timer;
 
@@ -89,5 +90,8 @@ public class GameTimer : MonoBehaviour
             bestFinishTime = finishTime;
             PlayerPrefs.SetFloat("bestTime", bestFinishTime);
         }
+
+        finishText = string.Format("{0}:{1:00}", (int)finishTime / 60, (int)finishTime % 60);
+        bestText = string.Format("{0}:{1:00}", (int)bestFinishTime / 60, (int)bestFinishTime % 60);
     }
 }

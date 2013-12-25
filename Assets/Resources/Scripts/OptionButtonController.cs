@@ -7,9 +7,11 @@ using System.Collections;
 /// @Author: Edgar Onukwugha
 /// @Date: 12/14/2013
 /// </summary>
-public class OptionButtonController : MonoBehaviour {
+public class OptionButtonController : MonoBehaviour
+{
 
-	public enum ButtonMenu{
+    public enum ButtonMenu
+    {
         PlayGame,
         Times,
         Resume,
@@ -24,34 +26,58 @@ public class OptionButtonController : MonoBehaviour {
 
     public string levelName;
     public Transform target;
-    PauseController pc = new PauseController();
-    GUIElementsController gec = new GUIElementsController();
 
-    void OnMouseDown() {
+    GameObject gameController;
+    PauseController pc;
+    GUIElementsController gec;
+    TimesDisplayController tdc;
+
+    void Start()
+    {
+        if (GameObject.FindGameObjectWithTag(Tags.gameController))
+        {
+            gameController = GameObject.FindGameObjectWithTag(Tags.gameController);
+            pc = gameController.GetComponent<PauseController>();
+            gec = gameController.GetComponent<GUIElementsController>();
+        }
+
+        if (GameObject.FindGameObjectWithTag(Tags.timesDisplay)) {
+            tdc = GameObject.FindGameObjectWithTag(Tags.timesDisplay).GetComponent<TimesDisplayController>();
+        }
+        
+    }
+
+    void OnMouseDown()
+    {
         PerformAction();
     }
 
     void PerformAction()
     {
-        switch (menu) { 
+        switch (menu)
+        {
             case ButtonMenu.PlayGame:
                 print("PlayGame button pressed");
                 Application.LoadLevel(levelName);
                 break;
             case ButtonMenu.Times:
-                print("Times button pressed");                
-                Camera.main.transform.LookAt(target);                
+                print("Times button pressed");
+                Camera.main.transform.LookAt(target);
+
+                //display best times
+                if (!tdc.TimesVisible)
+                    tdc.ShowTimes();
                 break;
             case ButtonMenu.Resume:
                 print("Resume button pressed");
-                //pause game
+                //unpause game
                 pc.UnpauseGame();
 
                 //disable pause menu
-                gec.DisableGUIElement(gec.pauseMenu);
+                gec.DisableGUIElement(gec.PauseMenu);
 
                 //enable pause button
-                gec.EnableGUIElement(gec.pauseButton);
+                gec.EnableGUIElement(gec.PauseButton);
                 break;
             case ButtonMenu.QuitLevel:
                 print("QuitGame button pressed");
@@ -63,18 +89,23 @@ public class OptionButtonController : MonoBehaviour {
                 break;
             case ButtonMenu.Pause:
                 print("Pause button pressed");
-                //pause game
+
+                //pause game                
                 pc.PauseGame();
 
                 //enable pause menu
-                gec.EnableGUIElement(gec.pauseMenu);
+                gec.EnableGUIElement(gec.PauseMenu);
 
                 //display pause button
-                gec.DisableGUIElement(gec.pauseButton);
+                gec.DisableGUIElement(gec.PauseButton);
                 break;
             case ButtonMenu.Back:
-                print("Times button pressed");
+                print("Back button pressed");
                 Camera.main.transform.LookAt(target);
+
+                //hide best times
+                if (tdc.TimesVisible)
+                    tdc.HideTimes();
                 break;
             case ButtonMenu.QuitGame:
                 Application.Quit();

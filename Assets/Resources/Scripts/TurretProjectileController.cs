@@ -10,12 +10,12 @@ using System.Collections;
 /// </summary>
 public class TurretProjectileController : MonoBehaviour
 {
-    int shieldDamage;
+    float shieldDamage;
     int crystalDamage;
     int turretExpDamage;    //should be negative
     int turretExp;
 
-    public int ShieldDamage
+    public float ShieldDamage
     {
         get { return shieldDamage; }
         set { shieldDamage = value; }
@@ -44,8 +44,8 @@ public class TurretProjectileController : MonoBehaviour
 
     void Start()
     {
-        shieldDamage = 25;
-        crystalDamage = 2;
+        shieldDamage = 5;
+        crystalDamage = 1;
         turretExp = 1;
         turretExpDamage = -3;
     }

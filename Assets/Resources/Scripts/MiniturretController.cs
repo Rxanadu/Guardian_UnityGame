@@ -15,10 +15,12 @@ public class MiniturretController : MonoBehaviour
     public Transform emitter;
     public GameObject projectile;
     public float fireSpeed = 6;
-    public float fireCooldown = 8;
+    public float fastFireCooldown = 3;
+    public float slowFireCooldown = 8;    
     public float rotationAngle = 40;
 
     float timer;
+    float fireCooldown;
     bool turretEnabled;
     int level;
     int exp;
@@ -90,6 +92,7 @@ public class MiniturretController : MonoBehaviour
     void FireCountdown()
     {
         timer += Time.deltaTime;
+        fireCooldown = Random.Range(fastFireCooldown, slowFireCooldown);
 
         //fire weapon, reset timer
         if (timer >= fireCooldown)

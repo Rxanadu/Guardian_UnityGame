@@ -7,12 +7,13 @@ using System.Collections;
 /// @Author: Edgar Onukwugha
 /// @Date: 11/02/13
 /// </summary>
-public class Tags : MonoBehaviour {
+public class Tags : MonoBehaviour
+{
 
-	public const string player = "Player";
+    public const string player = "Player";
     public const string gameController = "GameController";
-	public const string enemy = "Enemy";
-	public const string collectable = "Collectable";
+    public const string enemy = "Enemy";
+    public const string collectable = "Collectable";
     public const string guiElement = "GUIElement";
     public const string projectile = "Projectile";
     public const string crystalShield = "CrystalShield";
@@ -20,4 +21,5 @@ public class Tags : MonoBehaviour {
     public const string miniTurrret = "MiniTurret";
     public const string finishTimeText = "FinishedTimeText";
     public const string bestTimeText = "BestTimeText";
+    public const string timesDisplay = "TimesDisplay";
 }
